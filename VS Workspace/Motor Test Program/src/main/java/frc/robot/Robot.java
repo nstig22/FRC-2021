@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+
+ //This is used to test motors and also to test Github
 public class Robot extends TimedRobot {
   Joystick stick;
   TalonFX intake, backLeftShooter, backRightShooter, frontLeftShooter, frontRightShooter;
