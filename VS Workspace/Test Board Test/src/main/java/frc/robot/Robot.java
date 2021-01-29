@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    testFalcon.set(ControlMode.PercentOutput, 0.05);
+    testFalcon.set(ControlMode.PercentOutput, 0.1);
   }
 
   /**
