@@ -9,7 +9,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PWMSparkMax;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,8 +28,15 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 public class Robot extends TimedRobot {
 
+  //standard PS4 controller
   Joystick stick;
+  //all falcon 500s
   TalonFX intake, backLeftShooter, backRightShooter, frontLeftShooter, frontRightShooter, wormScrew;
+
+  //all spark MAXes and the NEOs they control
+  PWMSparkMax frontLeftDrive, backLeftDrive, frontRightDrive, backRightDrive;
+  SpeedControllerGroup leftDrive, rightDrive;
+  DifferentialDrive drive;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -36,12 +46,27 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     stick = new Joystick(0);
+
     intake = new TalonFX(11);
-    backLeftShooter = new TalonFX(7);
+    backLeftShooter = new TalonFX(7); //the "back" shooter motors are the belts that feed the actual two shooter wheels
     backRightShooter = new TalonFX(8);
-    frontLeftShooter = new TalonFX(5);
+    frontLeftShooter = new TalonFX(5); //the "front" shooter motors are the actual 4" diameter shooter wheels
     frontRightShooter = new TalonFX(6);
-    wormScrew = new TalonFX(10);
+    wormScrew = new TalonFX(10); //raises and lowers the lift
+
+
+    //THESE DRIVE MOTOR IDs ARE NOT ACCURATE, STILL NEED TO BE TESTED
+    frontLeftDrive = new PWMSparkMax(1);
+    frontRightDrive = new PWMSparkMax(2);
+    backRightDrive = new PWMSparkMax(3);
+    backLeftDrive = new PWMSparkMax(4);
+
+    leftDrive = new SpeedControllerGroup(backLeftDrive, frontLeftDrive);
+    rightDrive = new SpeedControllerGroup(backRightDrive, frontRightDrive);
+
+    DifferentialDrive drive = new DifferentialDrive(leftDrive, rightDrive);
+    //THESE DRIVE MOTOR IDs ARE NOT ACCURATE, STILL NEED TO BE TESTED
+
 
     // this is the command to set to brake mode
     wormScrew.setNeutralMode(NeutralMode.Brake);
@@ -90,6 +115,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+
+    drive.arcadeDrive(0, 0);
+
     // Here we run the intake using the right joystick
     // We will use the percentoutput mode of the TalonFX for our "no-magic" motor tests
     intake.set(ControlMode.PercentOutput, stick.getRawAxis(5) / 3);
