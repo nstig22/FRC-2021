@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 // This is used to test motors and also to test Github
 public class Robot extends TimedRobot {
-  
+
   Joystick stick;
   TalonFX intake, backLeftShooter, backRightShooter, frontLeftShooter, frontRightShooter, wormScrew;
 
@@ -60,12 +60,9 @@ public class Robot extends TimedRobot {
 
     if (stick.getRawButton(5) == true) {
       wormScrew.set(ControlMode.PercentOutput, 0.5);
-    } else {
-      wormScrew.set(ControlMode.PercentOutput, 0);
-    }
-    if (stick.getRawButton(6) == true) {
+    } if (stick.getRawButton(6) == true) {
       wormScrew.set(ControlMode.PercentOutput, -0.5);
-    } else {
+    } else if (stick.getRawButton(5) == false && stick.getRawButton(6) == false) {
       wormScrew.set(ControlMode.PercentOutput, 0);
     }
   }
