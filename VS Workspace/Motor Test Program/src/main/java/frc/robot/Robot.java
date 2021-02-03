@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,7 +19,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 
-// This is used to test motors and also to test Github
+// This is the first program of the year, mostly going to be used as a reference
+// and also a no-magic solution to testing motors and controllers
+// expect this program to always be updated with the latest IDs
+
 public class Robot extends TimedRobot {
 
   Joystick stick;
@@ -30,6 +34,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     stick = new Joystick(0);
     intake = new TalonFX(11);
     backLeftShooter = new TalonFX(7);
@@ -37,6 +42,9 @@ public class Robot extends TimedRobot {
     frontLeftShooter = new TalonFX(5);
     frontRightShooter = new TalonFX(6);
     wormScrew = new TalonFX(10);
+
+    // this is the command to set to brake mode
+    wormScrew.setNeutralMode(NeutralMode.Brake);
   }
 
   /**
@@ -50,21 +58,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    intake.set(ControlMode.PercentOutput, stick.getRawAxis(5) / 3);
-
-    backLeftShooter.set(ControlMode.PercentOutput, -stick.getRawAxis(1) / 2);
-    backRightShooter.set(ControlMode.PercentOutput, stick.getRawAxis(1) / 2);
-
-    frontLeftShooter.set(ControlMode.PercentOutput, stick.getRawAxis(4) + 1);
-    frontRightShooter.set(ControlMode.PercentOutput, -stick.getRawAxis(4) - 1);
-
-    if (stick.getRawButton(5) == true) {
-      wormScrew.set(ControlMode.PercentOutput, 0.5);
-    } if (stick.getRawButton(6) == true) {
-      wormScrew.set(ControlMode.PercentOutput, -0.5);
-    } else if (stick.getRawButton(5) == false && stick.getRawButton(6) == false) {
-      wormScrew.set(ControlMode.PercentOutput, 0);
-    }
   }
 
   /**
@@ -97,6 +90,27 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    // Here we run the intake using the right joystick
+    // We will use the percentoutput mode of the TalonFX for our "no-magic" motor tests
+    intake.set(ControlMode.PercentOutput, stick.getRawAxis(5) / 3);
+
+    // Here we run the ball feeders into the shooter using the left joystick
+    backLeftShooter.set(ControlMode.PercentOutput, -stick.getRawAxis(1) / 2);
+    backRightShooter.set(ControlMode.PercentOutput, stick.getRawAxis(1) / 2);
+
+    // here we run the actual shooter using the back right trigger
+    frontLeftShooter.set(ControlMode.PercentOutput, stick.getRawAxis(4) + 1);
+    frontRightShooter.set(ControlMode.PercentOutput, -stick.getRawAxis(4) - 1);
+
+    // Basic if and else if for the worm screw, down(button5) and up(button6)
+    if (stick.getRawButton(5) == true) {
+      wormScrew.set(ControlMode.PercentOutput, 0.5);
+    }
+    if (stick.getRawButton(6) == true) {
+      wormScrew.set(ControlMode.PercentOutput, -0.5);
+    } else if (stick.getRawButton(5) == false && stick.getRawButton(6) == false) {
+      wormScrew.set(ControlMode.PercentOutput, 0);
+    }
   }
 
   /** This function is called once when the robot is disabled. */
