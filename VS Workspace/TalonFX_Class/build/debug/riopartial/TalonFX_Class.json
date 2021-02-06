@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project TalonFX_Class)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "TalonFX_Class",
+    "language": "java"
+  }
+]
