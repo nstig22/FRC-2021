@@ -60,6 +60,6 @@ class Constants {
     final int PS4_OPTIONS_BUTTON = 10;
     final int PS4_LEFT_STICK_IN = 11;
     final int PS4_RIGHT_STICK_IN = 12;
-    final int PS4_PS4_LOGO_BUTTON = 13;
+    final int PS4_LOGO_BUTTON = 13;
     final int PS4_TOUCHPAD = 14;
 }
