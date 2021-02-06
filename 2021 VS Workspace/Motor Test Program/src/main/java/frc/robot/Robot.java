@@ -10,9 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMSparkMax;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,8 +33,6 @@ public class Robot extends TimedRobot {
 
   //all spark MAXes and the NEOs they control
   PWMSparkMax frontLeftDrive, backLeftDrive, frontRightDrive, backRightDrive;
-  SpeedControllerGroup leftDrive, rightDrive;
-  DifferentialDrive drive;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -60,11 +56,6 @@ public class Robot extends TimedRobot {
     frontRightDrive = new PWMSparkMax(2);
     backRightDrive = new PWMSparkMax(3);
     backLeftDrive = new PWMSparkMax(4);
-
-    leftDrive = new SpeedControllerGroup(backLeftDrive, frontLeftDrive);
-    rightDrive = new SpeedControllerGroup(backRightDrive, frontRightDrive);
-
-    DifferentialDrive drive = new DifferentialDrive(leftDrive, rightDrive);
     //THESE DRIVE MOTOR IDs ARE NOT ACCURATE, STILL NEED TO BE TESTED
 
 
@@ -115,8 +106,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
-    drive.arcadeDrive(0, 0);
 
     // Here we run the intake using the right joystick
     // We will use the percentoutput mode of the TalonFX for our "no-magic" motor tests
