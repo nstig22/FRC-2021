@@ -44,18 +44,18 @@ class BallShootThread extends BallShooter implements Runnable {
         // While the Thread is alive, do stuff.
         while (ballShootThread.isAlive() == true) {
 
-            // If the circle button on the PS4 is pressed,
-            // and the triangle button is NOT pressed...
-            if ((PS4.getRawButton(constants.PS4_CIRCLE_BUTTON) == true)
-                    && (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON) == false)) {
+            // If the X button on the PS4 is pressed,
+            // and the square button is NOT pressed...
+            if ((PS4.getRawButton(constants.PS4_X_BUTTON) == true)
+                    && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == false)) {
 
                 // Shoot balls with front motors at 100% and back motors at 40%.
                 ballShoot(1, 0.4);
 
-                // Else if the circle button on the PS4 is pressed,
-                // and the triangle button IS pressed...
-            } else if ((PS4.getRawButton(constants.PS4_CIRCLE_BUTTON) == true)
-                    && (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON) == true)) {
+                // Else if the X button on the PS4 is not pressed,
+                // and the square button IS pressed...
+            } else if ((PS4.getRawButton(constants.PS4_X_BUTTON) == false)
+                    && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == true)) {
 
                 // Run the ball shooter motors backwards at 100% and back motors at 40%.
                 ballShoot(-1, -0.4);

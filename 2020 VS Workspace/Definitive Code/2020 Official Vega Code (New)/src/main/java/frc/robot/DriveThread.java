@@ -73,7 +73,8 @@ class DriveThread extends RobotDrive implements Runnable {
                 // If the driver presses the Triangle button on the PS4,
                 // change the variable to its opposite state, thus either
                 // inverting the drive or un-inverting it.
-                if (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON)) {
+                // TODO this should be changed to not use the timer delay function
+                if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
                     invertDriveToggle = !invertDriveToggle;
                     Timer.delay(0.1);
                 }
