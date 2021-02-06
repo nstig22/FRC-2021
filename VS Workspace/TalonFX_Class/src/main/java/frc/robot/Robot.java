@@ -22,19 +22,22 @@ public class Robot extends TimedRobot {
   private int init=1;
 
   static TalFX_Shooter lf_shoot;
+  static TalFX_Shooter rf_shoot;
   static ShootThread shoot;
   static double velocity;
 
   static boolean shoot_thread_active = false;
 
- 
-  
-  
+  //  You need to set the CAN ID's here for the TalonFX motors
+  //  I am setting them to 1 and 2 respectively, you will need
+  //  to change them for your specific application.
+  int talonfx_can_id_1=1;
+  int talonfx_can_id_2=2;
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
+
+   // This function is run when the robot is first started up and should be used for any
+   // initialization code.
+   
   @Override
   public void robotInit() {
 
@@ -44,14 +47,18 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    lf_shoot = new TalFX_Shooter(1,true);
+    //  Create the two objects with appropriate inversion state
+    lf_shoot = new TalFX_Shooter(talonfx_can_id_1,false);  //  non-inverted
+    rf_shoot = new TalFX_Shooter(talonfx_can_id_2,true);   //  inverted
 
     //  Setup shoot parameters
     lf_shoot.setWheelDiameter(4.0);
+    rf_shoot.setWheelDiameter(4.0);
 
     System.out.println("Wheel Diameter = " + lf_shoot.getWheelDiameter() + "inches");
 
     lf_shoot.setTargetVelocity(60.0); 
+    rf_shoot.setTargetVelocity(60.0); 
 
     velocity=lf_shoot.getTargetVelocity();
 
@@ -59,8 +66,10 @@ public class Robot extends TimedRobot {
 
     //  compute motor velocity target for the desired ball velocity
     lf_shoot.target_speed=lf_shoot.computeMotorSpeed(velocity);
-    System.out.println("target speed = " + lf_shoot.target_speed + "counts/100msec");
+    rf_shoot.target_speed=rf_shoot.computeMotorSpeed(velocity);
 
+    System.out.println("target speed = " + lf_shoot.target_speed + "counts/100msec");
+    System.out.println("target speed = " + (-1*rf_shoot.target_speed) + "counts/100msec");  //  inverted
   
   }
 
@@ -108,6 +117,12 @@ public class Robot extends TimedRobot {
     //  We call the thread once.  I envision that this thread could be expanded
     //  to fire all four motors.
     if(init==1)  {
+
+      //  Will need to think about this a bit more.  How do we combine all four
+      //  motors in a single thread?  My best guess at this point would be to
+      //  create a separate class for a multiple motor setup that is created and
+      //  initialized in autonomousInit().  What I don't know is what happends when
+      //  you create classes that access the same hardware.
         shoot=new ShootThread("shoot thread");
         init=0;
     }
@@ -121,10 +136,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {    
 
+    //  Telop should work OK with multiple motors and these class functions
     lf_shoot.setVelocity();
-    //lf_shoot.setVelocityII();
-
-    
+    rf_shoot.setVelocity();
+   
 
 }
 

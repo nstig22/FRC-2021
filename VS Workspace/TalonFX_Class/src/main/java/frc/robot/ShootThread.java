@@ -58,7 +58,6 @@ class ShootThread implements Runnable {
 			//  Need to call once to control motor speed.  This thread version
 			//  is completely different from the version for teleop()
 			Robot.lf_shoot.setVelocity(Robot.lf_shoot.getTargetVelocity(),Robot.lf_shoot.duration);
-			
 			delay.delay_milliseconds(5);
 				
 			// Wait for the thread to complete
