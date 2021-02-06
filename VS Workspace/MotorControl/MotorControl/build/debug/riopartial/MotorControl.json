@@ -1,9 +1,0 @@
-[
-  {
-    "artifact": "frcJava (in project MotorControl)",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "MotorControl",
-    "language": "java"
-  }
-]
