@@ -90,10 +90,11 @@ public class Robot extends TimedRobot {
     leftYAxisPS4 = PS4.getY();
     zAxisTriggers = getZAxisTriggers();
 
-    // If the driver presses the Triangle button on the PS4,
+    // If the driver presses the Touchpad button on the PS4,
     // change the variable to its opposite state, thus either
     // inverting the drive or un-inverting it.
-    if (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON)) {
+    // TODO also remove timer function here
+    if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
       invertDriveToggle = !invertDriveToggle;
       Timer.delay(0.1);
     }
@@ -130,18 +131,18 @@ public class Robot extends TimedRobot {
       robotDrive.mecanumDrive.driveCartesian(0, 0, 0);
     }
 
-    // If the circle button on the PS4 is pressed,
-    // and the triangle button is NOT pressed...
-    if ((PS4.getRawButton(constants.PS4_CIRCLE_BUTTON) == true)
-        && (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON) == false)) {
+    // If the X button on the PS4 is pressed,
+    // and the Square button is NOT pressed...
+    if ((PS4.getRawButton(constants.PS4_X_BUTTON) == true)
+        && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == false)) {
 
       // Shoot balls with front motors at 100% and back motors at 40%.
       ballShooter.ballShoot(1, 0.2);
 
-      // Else if the circle button on the PS4 is pressed,
-      // and the triangle button IS pressed...
-    } else if ((PS4.getRawButton(constants.PS4_CIRCLE_BUTTON) == true)
-        && (PS4.getRawButton(constants.PS4_TRIANGLE_BUTTON) == true)) {
+      // Else if the X button on the PS4 is pressed,
+      // and the square button IS pressed...
+    } else if ((PS4.getRawButton(constants.PS4_X_BUTTON) == true)
+        && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == true)) {
 
       // Run the ball shooter motors backwards at 100% and back motors at 40%.
       ballShooter.ballShoot(-1, -0.2);
@@ -152,15 +153,15 @@ public class Robot extends TimedRobot {
       ballShooter.ballShoot(0, 0);
     }
 
-    // If the driver pushes the right bumper button on the PS4 Controller,
+    // If the driver pushes the left bumper button on the PS4 Controller,
     // run the intake motors forward (inwards).
-    if (PS4.getRawButton(constants.PS4_RIGHT_BUMPER)) {
+    if (PS4.getRawButton(constants.PS4_LEFT_BUMPER)) {
 
       ballIntake.intakeBalls(-0.25, -0.5);
 
-      // Else if the driver pushes the left bumper button on the PS4 Controller,
+      // Else if the driver pushes the right bumper button on the PS4 Controller,
       // run the intake motors backwards (outward).
-    } else if (PS4.getRawButton(constants.PS4_LEFT_BUMPER)) {
+    } else if (PS4.getRawButton(constants.PS4_RIGHT_BUMPER)) {
 
       ballIntake.intakeBalls(0.25, 0.5);
 

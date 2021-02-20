@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
 
     // Here we run the intake using the right joystick
     // We will use the percentoutput mode of the TalonFX for our "no-magic" motor tests
-    intake.set(ControlMode.PercentOutput, stick.getRawAxis(5) / 3);
+    intake.set(ControlMode.PercentOutput, stick.getRawAxis(5) / 2);
 
     // Here we run the ball feeders into the shooter using the left joystick
     backLeftShooter.set(ControlMode.PercentOutput, -stick.getRawAxis(1) / 2);

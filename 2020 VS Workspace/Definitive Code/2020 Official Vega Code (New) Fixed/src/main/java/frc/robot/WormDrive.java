@@ -56,24 +56,24 @@ class WormDrive extends Constants {
     /////////////////////////////////////////////////////////////////////
     public void adjustShooterAngleManual() {
 
-        // If the driver pushes the Square Button on the PS4 Controller,
+        // If the driver pushes the Circle Button on the PS4 Controller,
         // set the worm drive motors to go backwards (lower it).
-        if (PS4.getRawButton(PS4_X_BUTTON) == true) {
+        if (PS4.getRawButton(PS4_CIRCLE_BUTTON) == true) {
 
             wormDriveMotors.set(-0.2);
 
             // If the driver pushes the Triangle Button on the PS4 Controller,
             // set the worm drive motors to go forwards (raise it up).
-        } else if (PS4.getRawButton(PS4_SQUARE_BUTTON) == true) {
+        } else if (PS4.getRawButton(PS4_TRIANGLE_BUTTON) == true) {
 
             wormDriveMotors.set(0.4);
         }
 
-        // If the driver is an idiot and is pressing BOTH the Square Button AND the
+        // If the driver is an idiot and is pressing BOTH the Circle Button AND the
         // Triangle Button at the same time, OR (||) if the driver is pushing neither
         // button, set the motor speed to 0.
-        else if (((PS4.getRawButton(PS4_X_BUTTON) == true) && (PS4.getRawButton(PS4_SQUARE_BUTTON) == true))
-                || ((PS4.getRawButton(PS4_X_BUTTON) == false) && (PS4.getRawButton(PS4_SQUARE_BUTTON) == false))) {
+        else if (((PS4.getRawButton(PS4_CIRCLE_BUTTON) == true) && (PS4.getRawButton(PS4_TRIANGLE_BUTTON) == true))
+                || ((PS4.getRawButton(PS4_CIRCLE_BUTTON) == false) && (PS4.getRawButton(PS4_TRIANGLE_BUTTON) == false))) {
 
             wormDriveMotors.set(0);
         }
