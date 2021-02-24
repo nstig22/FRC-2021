@@ -29,8 +29,7 @@ class Constants extends Robot {
     final int BACK_RIGHT_SHOOTER_MOTOR_ID = 8;
 
     // Magic numbers for the ID for the WormDrive motors.
-    final int RIGHT_WORM_DRIVE_MOTOR_ID = 9;
-    final int LEFT_WORM_DRIVE_MOTOR_ID = 10;
+    final int WORM_DRIVE_MOTOR_ID = 10;
 
     // Magic number for the ID for the ball intake Falcon 500.
     final int BALL_INTAKE_MOTOR_ID = 11;

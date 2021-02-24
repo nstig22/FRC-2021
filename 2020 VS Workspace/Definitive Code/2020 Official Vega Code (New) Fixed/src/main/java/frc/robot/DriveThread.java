@@ -73,7 +73,7 @@ class DriveThread extends RobotDrive implements Runnable {
                 // If the driver presses the Touchpad button on the PS4,
                 // change the variable to its opposite state, thus either
                 // inverting the drive or un-inverting it.
-                // TODO not use the timer function here
+                // TODO develop new inversion
                 if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
                     invertDriveToggle = !invertDriveToggle;
                     Timer.delay(0.1);

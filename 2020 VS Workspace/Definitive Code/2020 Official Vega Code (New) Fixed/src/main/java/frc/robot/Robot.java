@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   double leftXAxisPS4, leftYAxisPS4, zAxisTriggers;
 
   // Used for the Mecanum drive deadband.
-  final double PS4_MEC_DRIVE_DEADBAND = 0.2;
+  final double PS4_MEC_DRIVE_DEADBAND = 0.1;
 
   // Creating the PS4 controller, with an ID of 0.
   Joystick PS4 = new Joystick(0);
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     // If the driver presses the Touchpad button on the PS4,
     // change the variable to its opposite state, thus either
     // inverting the drive or un-inverting it.
-    // TODO also remove timer function here
+    // TODO develop new inversion
     if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
       invertDriveToggle = !invertDriveToggle;
       Timer.delay(0.1);
@@ -113,65 +113,63 @@ public class Robot extends TimedRobot {
 
     // If either axis is being pressed, run the drive in 1 of 2 ways,
     // depending on the toggle.
-    if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND) || (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
-        || (Math.abs(zAxisTriggers) > PS4_MEC_DRIVE_DEADBAND))) {
 
-      // If the invert drive toggle is false, drive normally.
-      if (invertDriveToggle == false) {
-        robotDrive.mecanumDrive.driveCartesian(-leftYAxisPS4, getZAxisTriggers(), leftXAxisPS4);
-      }
+    //  if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND) ||
+    //   (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND) || (Math.abs(zAxisTriggers)
+    //   > PS4_MEC_DRIVE_DEADBAND))) {
 
-      // If the toggle is true, the same function but the signs are different.
-      else if (invertDriveToggle == true) {
-        robotDrive.mecanumDrive.driveCartesian(leftYAxisPS4, -getZAxisTriggers(), -leftXAxisPS4);
-      }
 
-    } else {
-      // Else, don't run the drive motors.
-      robotDrive.mecanumDrive.driveCartesian(0, 0, 0);
+    // If the invert drive toggle is false, drive normally.
+    if (invertDriveToggle == false) {
+      robotDrive.mecanumDrive.driveCartesian(-leftYAxisPS4, getZAxisTriggers(), leftXAxisPS4);
     }
 
-    // If the X button on the PS4 is pressed,
-    // and the Square button is NOT pressed...
-    if ((PS4.getRawButton(constants.PS4_X_BUTTON) == true)
-        && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == false)) {
-
-      // Shoot balls with front motors at 100% and back motors at 40%.
-      ballShooter.ballShoot(1, 0.2);
-
-      // Else if the X button on the PS4 is pressed,
-      // and the square button IS pressed...
-    } else if ((PS4.getRawButton(constants.PS4_X_BUTTON) == true)
-        && (PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == true)) {
-
-      // Run the ball shooter motors backwards at 100% and back motors at 40%.
-      ballShooter.ballShoot(-1, -0.2);
-
-    } else {
-
-      // Else, don't run the motors.
-      ballShooter.ballShoot(0, 0);
+    // If the toggle is true, the same function but the signs are different.
+    else if (invertDriveToggle == true) {
+      robotDrive.mecanumDrive.driveCartesian(leftYAxisPS4, -getZAxisTriggers(), -leftXAxisPS4);
     }
+  // } 
 
-    // If the driver pushes the left bumper button on the PS4 Controller,
-    // run the intake motors forward (inwards).
-    if (PS4.getRawButton(constants.PS4_LEFT_BUMPER)) {
+  // If the X button on the PS4 is pressed,
+  // and the Square button is NOT pressed...
+  if((PS4.getRawButton(constants.PS4_X_BUTTON)==true)&&(PS4.getRawButton(constants.PS4_SQUARE_BUTTON)==false)){
 
-      ballIntake.intakeBalls(-0.25, -0.5);
+  // Shoot balls with front motors at 100% and back motors at 40%.
+  ballShooter.ballShoot(1,0.2);
 
-      // Else if the driver pushes the right bumper button on the PS4 Controller,
-      // run the intake motors backwards (outward).
-    } else if (PS4.getRawButton(constants.PS4_RIGHT_BUMPER)) {
+  // Else if the X button on the PS4 is pressed,
+  // and the square button IS pressed...
+  /*} else if((PS4.getRawButton(constants.PS4_X_BUTTON)==true)&&(PS4.getRawButton(constants.PS4_SQUARE_BUTTON)==true)){
 
-      ballIntake.intakeBalls(0.25, 0.5);
+  // Run the ball shooter motors backwards at 100% and back motors at 40%.
+  ballShooter.ballShoot(-1,-0.2);
+*/
+  } else if(PS4.getRawButton(constants.PS4_SQUARE_BUTTON) == true) {
+    ballShooter.ballShoot(0, 0.1);
+  } else {
 
-    } else {
+  // Else, don't run the motors.
+  ballShooter.ballShoot(0,0);}
 
-      // Else, set the motors to 0 (don't run them).
-      ballIntake.intakeBalls(0, 0);
-    }
+  // If the driver pushes the right bumper button on the PS4 Controller,
+  // run the intake motors forward (inwards).
+  if(PS4.getRawButton(constants.PS4_RIGHT_BUMPER)){
+
+  ballIntake.intakeBalls(-0.25,-0.5);
+
+  // Else if the driver pushes the left bumper button on the PS4 Controller,
+  // run the intake motors backwards (outward).
+  }else if(PS4.getRawButton(constants.PS4_LEFT_BUMPER)){
+
+  ballIntake.intakeBalls(0.25,0.5);
+
+  }else{
+
+  // Else, set the motors to 0 (don't run them).
+  ballIntake.intakeBalls(0,0);
 
   }
+}
 
   @Override
   public void testPeriodic() {
