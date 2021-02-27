@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   double leftXAxisPS4, leftYAxisPS4, zAxisTriggers;
 
   // Used for the Mecanum drive deadband.
-  final double PS4_MEC_DRIVE_DEADBAND = 0.1;
+  final double PS4_MEC_DRIVE_DEADBAND = 0.06;
 
   // Creating the PS4 controller, with an ID of 0.
   Joystick PS4 = new Joystick(0);
@@ -116,9 +116,9 @@ public class Robot extends TimedRobot {
     // If either axis is being pressed, run the drive in 1 of 2 ways,
     // depending on the toggle.
 
-    //  if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND) ||
-    //   (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND) || (Math.abs(zAxisTriggers)
-    //   > PS4_MEC_DRIVE_DEADBAND))) {
+     if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND) ||
+      (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND) || (Math.abs(zAxisTriggers)
+      > PS4_MEC_DRIVE_DEADBAND))) {
 
 
     // If the invert drive toggle is false, drive normally.
@@ -130,7 +130,9 @@ public class Robot extends TimedRobot {
     else if (invertDriveToggle == true) {
       robotDrive.mecanumDrive.driveCartesian(leftYAxisPS4, -getZAxisTriggers(), leftXAxisPS4);
     }
-  // } 
+   } else {
+     robotDrive.mecanumDrive.driveCartesian(0, 0, 0);
+   }
 
   // If the X button on the PS4 is pressed,
   // and the Square button is NOT pressed...
@@ -157,18 +159,18 @@ public class Robot extends TimedRobot {
   // run the intake motors forward (inwards).
   if(PS4.getRawButton(constants.PS4_RIGHT_BUMPER)){
 
-  ballIntake.intakeBalls(-0.25,-0.5);
+  ballIntake.intakeBalls(-0.25);
 
   // Else if the driver pushes the left bumper button on the PS4 Controller,
   // run the intake motors backwards (outward).
   }else if(PS4.getRawButton(constants.PS4_LEFT_BUMPER)){
 
-  ballIntake.intakeBalls(0.25,0.5);
+  ballIntake.intakeBalls(0.25);
 
   }else{
 
   // Else, set the motors to 0 (don't run them).
-  ballIntake.intakeBalls(0,0);
+  ballIntake.intakeBalls(0);
 
   }
 }

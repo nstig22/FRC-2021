@@ -71,16 +71,16 @@ class RobotDrive extends Robot {
         mecanumDrive.setSafetyEnabled(false);
 
         // Putting the drive motors in coast mode.
-        // frontLeftDriveMotor.setIdleMode(IdleMode.kCoast);
-        // frontRightDriveMotor.setIdleMode(IdleMode.kCoast);
-        // backLeftDriveMotor.setIdleMode(IdleMode.kCoast);
-        // backRightDriveMotor.setIdleMode(IdleMode.kCoast);
+        frontLeftDriveMotor.setIdleMode(IdleMode.kCoast);
+        frontRightDriveMotor.setIdleMode(IdleMode.kCoast);
+        backLeftDriveMotor.setIdleMode(IdleMode.kCoast);
+        backRightDriveMotor.setIdleMode(IdleMode.kCoast);
 
         // Putting the drive motors in brake mode.
-        frontLeftDriveMotor.setIdleMode(IdleMode.kBrake);
-        frontRightDriveMotor.setIdleMode(IdleMode.kBrake);
-        backLeftDriveMotor.setIdleMode(IdleMode.kBrake);
-        backRightDriveMotor.setIdleMode(IdleMode.kBrake);
+        // frontLeftDriveMotor.setIdleMode(IdleMode.kBrake);
+        // frontRightDriveMotor.setIdleMode(IdleMode.kBrake);
+        // backLeftDriveMotor.setIdleMode(IdleMode.kBrake);
+        // backRightDriveMotor.setIdleMode(IdleMode.kBrake);
 
         // Resetting the encoder.
         frontLeftDriveEnc.setPosition(0);

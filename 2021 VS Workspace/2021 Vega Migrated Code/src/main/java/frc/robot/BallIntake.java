@@ -45,7 +45,7 @@ class BallIntake extends Constants {
     //
     /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////
-    public void intakeBalls(double intakeSpeed, double topBeltSpeed) {
+    public void intakeBalls(double intakeSpeed) {
 
         // Run the intake motor at the inputted speed.
         ballIntakeMotor.set(intakeSpeed);
