@@ -5,8 +5,6 @@
 // Purpose: This Thread is responsible for the joystick controls for
 // the robot in teleop.
 //
-// Authors: Elliott DuCharme and Larry Basegio.
-//
 // Environment: Microsoft VSCode Java.
 //
 // Remarks: Created on 2/27/2020.
@@ -16,7 +14,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 
 // Creating the class that extends RobotDrive and implements the Runnable interface.
 class DriveThread extends RobotDrive implements Runnable {
@@ -58,8 +55,9 @@ class DriveThread extends RobotDrive implements Runnable {
             if (DriverStation.getInstance().isAutonomous()) {
 
                 // Run auto stuff only once.
+                // TODO put autonomous here too
                 if (autoOnce == true) {
-                    
+
                     autoOnce = false;
                 }
 
@@ -69,15 +67,6 @@ class DriveThread extends RobotDrive implements Runnable {
                 leftXAxisPS4 = PS4.getX();
                 leftYAxisPS4 = PS4.getY();
                 zAxisTriggers = getZAxisTriggers();
-
-                // If the driver presses the Touchpad button on the PS4,
-                // change the variable to its opposite state, thus either
-                // inverting the drive or un-inverting it.
-                // TODO develop new inversion
-                if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
-                    invertDriveToggle = !invertDriveToggle;
-                    Timer.delay(0.1);
-                }
 
                 /*
                  * Long if statement that acts as a deadband for the drive. Basically, if the
@@ -94,24 +83,24 @@ class DriveThread extends RobotDrive implements Runnable {
                 // TODO Try using drive Cartesian with the driveGyro angle parameter.
                 // If either axis is being pressed, run the drive in 1 of 2 ways,
                 // depending on the toggle.
-                if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
-                        || (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
-                        || (Math.abs(zAxisTriggers) > PS4_MEC_DRIVE_DEADBAND))) {
+                // if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
+                // || (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
+                // || (Math.abs(zAxisTriggers) > PS4_MEC_DRIVE_DEADBAND))) {
 
-                    // If the invert drive toggle is false, drive normally.
-                    if (invertDriveToggle == false) {
-                        mecanumDrive.driveCartesian(getZAxisTriggers(), -leftYAxisPS4, leftXAxisPS4);
-                    }
-
-                    // If the toggle is true, the same function but the signs are different.
-                    else if (invertDriveToggle == true) {
-                        mecanumDrive.driveCartesian(-getZAxisTriggers(), leftYAxisPS4, -leftXAxisPS4);
-                    }
-
-                } else {
-                    // Else, don't run the drive motors.
-                    mecanumDrive.driveCartesian(0, 0, 0);
+                // If the invert drive toggle is false, drive normally.
+                if (invertDriveToggle == false) {
+                    mecanumDrive.driveCartesian(getZAxisTriggers(), -leftYAxisPS4, leftXAxisPS4);
                 }
+
+                // If the toggle is true, the same function but the signs are different.
+                else if (invertDriveToggle == true) {
+                    mecanumDrive.driveCartesian(-getZAxisTriggers(), leftYAxisPS4, -leftXAxisPS4);
+                }
+
+                // } else {
+                // // Else, don't run the drive motors.
+                // mecanumDrive.driveCartesian(0, 0, 0);
+                // }
 
             }
 

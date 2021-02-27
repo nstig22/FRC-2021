@@ -3,9 +3,7 @@
 /////////////////////////////////////////////////////////////////////
 //
 // Purpose: Houses motors, functions, and other stuff for shooting
-// lemons (power cells).
-//
-// Authors: Elliott DuCharme and Larry Basegio.
+// power cells.
 //
 // Environment: Microsoft VSCode Java.
 //

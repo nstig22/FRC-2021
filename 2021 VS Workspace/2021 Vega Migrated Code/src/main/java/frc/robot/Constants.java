@@ -4,8 +4,6 @@
 //
 // Purpose: Houses constants that don't belong elsewhere.
 //
-// Authors: Elliott DuCharme and Larry Basegio.
-//
 // Environment: Microsoft VSCode Java.
 //
 // Remarks: Created on 2/25/2020.

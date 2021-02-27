@@ -5,8 +5,6 @@
 // Purpose: Houses motors, functions and other stuff for raising and 
 // lowering the lift (worm drive).
 //
-// Authors: Elliott DuCharme and Larry Basegio.
-//
 // Environment: Microsoft VSCode Java.
 //
 // Remarks: Created on 2/29/2020.

@@ -5,8 +5,6 @@
 // Purpose: The main file that links every other class and thread
 // together, plus some other stuff like.
 //
-// Authors: Elliott DuCharme and Larry Basegio.
-//
 // Environment: Microsoft VSCode Java.
 //
 // Remarks: Created on 2/25/2020.
@@ -17,7 +15,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 
 public class Robot extends TimedRobot {
 
@@ -93,11 +90,16 @@ public class Robot extends TimedRobot {
     // If the driver presses the Touchpad button on the PS4,
     // change the variable to its opposite state, thus either
     // inverting the drive or un-inverting it.
-    // TODO develop new inversion
-    if (PS4.getRawButton(constants.PS4_TOUCHPAD)) {
-      invertDriveToggle = !invertDriveToggle;
-      Timer.delay(0.1);
+    if (invertDriveToggle == false) {
+      while (PS4.getRawButton(constants.PS4_TOUCHPAD) == true) {
+          invertDriveToggle = true;
+      }
     }
+      if (invertDriveToggle == true) {
+          while (PS4.getRawButton(constants.PS4_TOUCHPAD) == true) {
+              invertDriveToggle = false;
+          }
+      }
 
     /*
      * Long if statement that acts as a deadband for the drive. Basically, if the
@@ -126,7 +128,7 @@ public class Robot extends TimedRobot {
 
     // If the toggle is true, the same function but the signs are different.
     else if (invertDriveToggle == true) {
-      robotDrive.mecanumDrive.driveCartesian(leftYAxisPS4, -getZAxisTriggers(), -leftXAxisPS4);
+      robotDrive.mecanumDrive.driveCartesian(leftYAxisPS4, -getZAxisTriggers(), leftXAxisPS4);
     }
   // } 
 
