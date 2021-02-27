@@ -95,27 +95,16 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    if (stick.getRawButton(14) == true) {
-      if (stick.getRawButton(14) == false) {
+    if (pressed == false) {
+      while (stick.getRawButton(14) == true) {
         pressed = true;
       }
     }
-    if (stick.getRawButton(14) == false) {
-      if (stick.getRawButton(14) == true) {
+    if (pressed == true) {
+      while (stick.getRawButton(14) == true) {
         pressed = false;
       }
     }
-
-    // if (pressed == false) {
-    // while (stick.getRawButton(14) == true) {
-    // pressed = true;
-    // }
-    // }
-    // if (pressed == true) {
-    // while (stick.getRawButton(14) == true) {
-    // pressed = false;
-    // }
-    // }
 
   }
 
