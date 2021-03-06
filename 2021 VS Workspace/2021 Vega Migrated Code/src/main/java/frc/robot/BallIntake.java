@@ -28,7 +28,7 @@ class BallIntake extends Constants {
         // Setting the intake Falcon 500 motor in coast mode.
         ballIntakeMotor.setNeutralMode(NeutralMode.Coast);
     }
-    
+
     /////////////////////////////////////////////////////////////////////
     // Function: intakeBalls(...)
     /////////////////////////////////////////////////////////////////////

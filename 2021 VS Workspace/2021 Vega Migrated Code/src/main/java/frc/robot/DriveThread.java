@@ -29,10 +29,10 @@ class DriveThread extends RobotDrive implements Runnable {
 
     // Doubles used for the joystick and analog trigger
     // values in the Mecanum drive deadband.
-    double leftXAxisPS4, leftYAxisPS4, zAxisTriggers;
+    double leftXAxisPS, leftYAxisPS, zAxisTriggers;
 
     // Used for the Mecanum drive deadband.
-    final double PS4_MEC_DRIVE_DEADBAND = 0.2;
+    final double PS_MEC_DRIVE_DEADBAND = 0.2;
 
     // Constructor.
     DriveThread(String name) {
@@ -55,7 +55,6 @@ class DriveThread extends RobotDrive implements Runnable {
             if (DriverStation.getInstance().isAutonomous()) {
 
                 // Run auto stuff only once.
-                // TODO put autonomous here too
                 if (autoOnce == true) {
 
                     autoOnce = false;
@@ -64,8 +63,8 @@ class DriveThread extends RobotDrive implements Runnable {
             } else {
 
                 // Getting the values of these to be used for Mecanum drive stuff.
-                leftXAxisPS4 = PS4.getX();
-                leftYAxisPS4 = PS4.getY();
+                leftXAxisPS = PS.getX();
+                leftYAxisPS = PS.getY();
                 zAxisTriggers = getZAxisTriggers();
 
                 /*
@@ -80,22 +79,22 @@ class DriveThread extends RobotDrive implements Runnable {
                  * turning left/right.
                  */
 
-                // TODO Try using drive Cartesian with the driveGyro angle parameter.
+                // MAYBE Try using drive Cartesian with the driveGyro angle parameter.
                 // If either axis is being pressed, run the drive in 1 of 2 ways,
                 // depending on the toggle.
-                // if (((Math.abs(leftXAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
-                // || (Math.abs(leftYAxisPS4) > PS4_MEC_DRIVE_DEADBAND)
-                // || (Math.abs(zAxisTriggers) > PS4_MEC_DRIVE_DEADBAND))) {
+                // if (((Math.abs(leftXAxisPS) > PS_MEC_DRIVE_DEADBAND)
+                // || (Math.abs(leftYAxisPS) > PS_MEC_DRIVE_DEADBAND)
+                // || (Math.abs(zAxisTriggers) > PS_MEC_DRIVE_DEADBAND))) {
 
                 // If the invert drive toggle is false, drive normally.
-                if (invertDriveToggle == false) {
-                    mecanumDrive.driveCartesian(getZAxisTriggers(), -leftYAxisPS4, leftXAxisPS4);
-                }
+                // if (invertDriveToggle == false) {
+                //     mecanumDrive.driveCartesian(getZAxisTriggers(), -leftYAxisPS, leftXAxisPS);
+                // }
 
-                // If the toggle is true, the same function but the signs are different.
-                else if (invertDriveToggle == true) {
-                    mecanumDrive.driveCartesian(-getZAxisTriggers(), leftYAxisPS4, -leftXAxisPS4);
-                }
+                // // If the toggle is true, the same function but the signs are different.
+                // else if (invertDriveToggle == true) {
+                //     mecanumDrive.driveCartesian(-getZAxisTriggers(), leftYAxisPS, -leftXAxisPS);
+                // }
 
                 // } else {
                 // // Else, don't run the drive motors.
@@ -136,8 +135,8 @@ class DriveThread extends RobotDrive implements Runnable {
         // Axes 2 and 3 are the left and right analog triggers, respectively.
         // You have to add 1 because the triggers start at -1 and go to 1.
         // Adding 1 makes them start at 0 when not being pressed.
-        leftAnalogTrigger = PS4.getRawAxis(3) + 1;
-        rightAnalogTrigger = PS4.getRawAxis(4) + 1;
+        leftAnalogTrigger = PS.getRawAxis(3) + 1;
+        rightAnalogTrigger = PS.getRawAxis(4) + 1;
 
         // Do the math for getting the value for strafing.
         // Example 1: if the driver presses the right one down, that value will be 1 - 0
